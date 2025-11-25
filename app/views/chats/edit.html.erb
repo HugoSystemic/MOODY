@@ -1,0 +1,14 @@
+<div class="container mt-5">
+  <h2>Éditer la session</h2>
+
+  <%= form_with model: @chat, local: true do |f| %>
+    <div class="mb-3">
+      <%= f.label :title, "Titre de la session" %>
+      <%= f.text_field :title, class: "form-control" %>
+    </div>
+
+    <%= f.submit "Mettre à jour", class: "btn btn-primary" %>
+    <%= link_to "Annuler", chat_path(@chat), class: "btn btn-secondary" %>
+  <% end %>
+</div>
+

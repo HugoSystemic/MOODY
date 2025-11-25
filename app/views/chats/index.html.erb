@@ -1,0 +1,14 @@
+<div class="container mt-5">
+  <h1 class="mb-4">Mes chats</h1>
+
+  <% @chats.each do |chat| %>
+    <div class="card mb-3 p-3">
+      <h5><%= link_to chat.title, chat_path(chat), class: "text-decoration-none" %></h5>
+      <p>Utilisateur : <%= chat.user.email %></p>
+      <p>Créé le : <%= chat.created_at.strftime("%d/%m/%Y %H:%M") %></p>
+    </div>
+  <% end %>
+
+  <%= link_to "Créer une nouvelle session", new_chat_path, class: "btn btn-primary mt-3" %>
+</div>
+
