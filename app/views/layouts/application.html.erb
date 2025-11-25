@@ -8,6 +8,8 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+
     <body class="bg-light">
   </head>
 
@@ -18,7 +20,7 @@
 
     <%= link_to "Skip to main content", "#main-content", class: "visually-hidden-focusable" %>
     <header>
-      <%= render "shared/navbar" %> 
+      <%= render "shared/navbar" %>
     </header>
 
     <main id="main-content">

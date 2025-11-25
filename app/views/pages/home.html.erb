@@ -1,5 +1,4 @@
 <div class="container d-flex flex-column justify-content-center align-items-center text-center" style="min-height: 90vh;">
-
   <div class="mb-4 d-flex gap-3">
     <div style="width: 18px; height: 18px; border-radius: 50%; background:#ff7676;"></div>
     <div style="width: 18px; height: 18px; border-radius: 50%; background:#ffd76d;"></div>
@@ -13,8 +12,6 @@
     Trouve la musique qui correspond à ton mood.
   </p>
 
-  <% unless user_signed_in? %>
-    <%= link_to "Commencer", new_user_registration_path, class: "btn btn-primary btn-lg px-4 rounded-pill" %>
-  <% end %>
+<%= link_to "Commencer", new_chat_path, class: "btn btn-primary btn-lg px-4 rounded-pill" %>
 
 </div>
