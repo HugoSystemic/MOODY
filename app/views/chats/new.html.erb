@@ -1,0 +1,14 @@
+<div class="container mt-5">
+  <h2>Créer un nouveau chat</h2>
+
+  <%= form_with model: @chat, local: true do |f| %>
+    <div class="mb-3">
+      <%= f.label :title, "Titre de la session" %>
+      <%= f.text_field :title, class: "form-control" %>
+    </div>
+
+    <%= f.submit "Créer", class: "btn btn-primary" %>
+    <%= link_to "Annuler", chats_path, class: "btn btn-secondary" %>
+  <% end %>
+</div>
+

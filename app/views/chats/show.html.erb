@@ -1,0 +1,37 @@
+<div class="container mt-5">
+  <h2><%= @chat.title %></h2>
+
+  <hr>
+
+  <h4>Messages</h4>
+  <div class="mb-4">
+    <% @messages.each do |message| %>
+      <div class="p-2 mb-2 border rounded <%= message.role == 'user' ? 'bg-light' : 'bg-warning text-dark' %>">
+        <strong><%= message.role.capitalize %> :</strong> <%= message.content %>
+      </div>
+    <% end %>
+  </div>
+
+  <h4>Musiques</h4>
+  <ul class="list-group mb-4">
+    <% @musics.each do |music| %>
+      <li class="list-group-item">
+        <strong><%= music.title %></strong> - Mood : <%= music.mood %> - Durée : <%= music.duration_minutes %> min
+        <br>
+        <a href="<%= music.video_url %>" target="_blank">Écouter sur YouTube</a>
+      </li>
+    <% end %>
+  </ul>
+
+  <div class="d-flex gap-2">
+    <%= link_to "Éditer ce chat", edit_chat_path(@chat), class: "btn btn-secondary" %>
+
+    <%= link_to "Supprimer ce chat", chat_path(@chat),
+                method: :delete,
+                data: { turbo_confirm: "Es-tu sûr de vouloir supprimer cette session ?" },
+                class: "btn btn-danger" %>
+
+    <%= link_to "Retour à mes chats", chats_path, class: "btn btn-outline-primary" %>
+  </div>
+</div>
+
