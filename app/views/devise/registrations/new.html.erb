@@ -1,25 +1,38 @@
-<h2>Sign up</h2>
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
 
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= f.error_notification %>
+      <h2 class="text-center mb-4">Créer un compte</h2>
+      <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= f.error_notification class: "alert alert-danger" %>
+        <div class="form-inputs card p-4 shadow-sm">
+          <%= f.input :email,
+                      required: true,
+                      autofocus: true,
+                      input_html: { autocomplete: "email", class: "form-control" },
+                      label_html: { class: "form-label" } %>
 
-  <div class="form-inputs">
-    <%= f.input :email,
-                required: true,
-                autofocus: true,
-                input_html: { autocomplete: "email" }%>
-    <%= f.input :password,
-                required: true,
-                hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :password_confirmation,
-                required: true,
-                input_html: { autocomplete: "new-password" } %>
+          <%= f.input :password,
+                      required: true,
+                      hint: ("#{@minimum_password_length} caractères minimum" if @minimum_password_length),
+                      input_html: { autocomplete: "new-password", class: "form-control" },
+                      label_html: { class: "form-label" } %>
+
+          <%= f.input :password_confirmation,
+                      required: true,
+                      input_html: { autocomplete: "new-password", class: "form-control" },
+                      label_html: { class: "form-label" } %>
+          </div>
+
+        <div class="form-actions mt-4 text-center">
+          <%= f.button :submit, "S'inscrire", class: "btn btn-success btn-lg w-100" %>
+          </div>
+      <% end %>
+
+      <div class="mt-3 text-center">
+        <%= render "devise/shared/links" %>
+      </div>
+
+    </div>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>
