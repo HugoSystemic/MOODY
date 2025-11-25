@@ -1,0 +1,14 @@
+<!-- app/views/messages/_form.html.erb -->
+
+<%= simple_form_for([chat, message]) do |f| %>
+  <div class="mb-3">
+    <%= f.input :content,
+                label: "Votre message pour Moody",
+                as: :text,
+                input_html: { rows: 3, placeholder: "Décrivez l'ambiance que vous voulez, les styles, ce que vous aimez / n'aimez pas..." } %>
+  </div>
+
+  <div class="d-flex justify-content-end">
+    <%= f.button :submit, "Envoyer", class: "btn btn-primary" %>
+  </div>
+<% end %>
