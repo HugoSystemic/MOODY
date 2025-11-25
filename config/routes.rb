@@ -7,6 +7,8 @@ Rails.application.routes.draw do
     get :favorites, on: :collection
     get :settings, on: :collection
   end
+  
+  resources :chats, only: [:index, :new, :create, :show, :destroy]
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
