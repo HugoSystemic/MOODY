@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
   root to: "pages#home"
 # Route pour le profil (utiliser la ressource 'resource' car il n'y a qu'un profil par utilisateur connecté)
-  resources :profile, only: [:show] do
+  resource :profile, only: [:show] do
     # Actions spécifiques non-RESTful
     get :favorites, on: :collection
     get :settings, on: :collection

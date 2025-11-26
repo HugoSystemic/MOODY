@@ -7,11 +7,11 @@
   </div>
 
   <h1 class="fw-bold mb-3">MOODY</h1>
+  <p class="text-secondary mb-4">Trouve la musique qui correspond à ton mood.</p>
 
-  <p class="text-secondary mb-4">
-    Trouve la musique qui correspond à ton mood.
-  </p>
-
-<%= link_to "Commencer", new_chat_path, class: "btn btn-primary btn-lg px-4 rounded-pill" %>
-
+  <%= form_with model: @chat, url: chats_path, local: true, class: "d-flex flex-column gap-2" do |f| %>
+    <%= f.hidden_field :title, value: "Nouvelle session" %>
+    <%= f.text_area :message_content, placeholder: "Quel est ton mood du moment !", name: "message[content]", class: "form-control", style: "width: 500px; display: block; margin: 0 auto;" %>
+    <%= f.submit "Commencer", class: "btn btn-primary btn-lg px-4 rounded-pill mt-2" %>
+  <% end %>
 </div>
