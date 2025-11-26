@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_11_25_111018) do
+ActiveRecord::Schema[7.1].define(version: 2025_11_26_112153) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,6 +19,10 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_25_111018) do
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "mood"
+    t.string "activity"
+    t.integer "duration"
+    t.boolean "liked"
     t.index ["user_id"], name: "index_chats_on_user_id"
   end
 
@@ -33,17 +37,15 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_25_111018) do
   end
 
   create_table "musics", force: :cascade do |t|
-    t.bigint "user_id", null: false
     t.bigint "chat_id", null: false
     t.string "video_url"
     t.string "title"
-    t.string "mood"
+    t.string "category"
     t.integer "duration_minutes"
     t.boolean "liked"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["chat_id"], name: "index_musics_on_chat_id"
-    t.index ["user_id"], name: "index_musics_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -61,5 +63,4 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_25_111018) do
   add_foreign_key "chats", "users"
   add_foreign_key "messages", "chats"
   add_foreign_key "musics", "chats"
-  add_foreign_key "musics", "users"
 end
