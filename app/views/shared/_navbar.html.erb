@@ -27,15 +27,8 @@
               <h6 class="dropdown-header"><%= current_user.email %></h6>
               <div class="dropdown-divider"></div>
 
-              <%# Option 1 : Détails du profil (route 'show') %>
-              <%= link_to "Détails du profil", profile_path, class: "dropdown-item" %>
-
-              <%# Option 2 : Favoris (route 'favorites') %>
-              <%= link_to "Mes Favoris", favorites_profile_path, class: "dropdown-item" %>
-
-              <%# Option 3 : Paramètres (route 'settings') %>
-              <%= link_to "Paramètres du compte", settings_profile_path, class: "dropdown-item" %>
-
+              <%= link_to "Mon compte", edit_user_registration_path, class: "dropdown-item" %>
+              
               <div class="dropdown-divider"></div>
 
               <%# Option 4 : Déconnexion (action Devise directe) %>
