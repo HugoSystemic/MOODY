@@ -3,7 +3,19 @@ class Chat < ApplicationRecord
   has_many :messages, dependent: :destroy
   has_many :musics, dependent: :destroy
 
-  def parameters_complete?
-    activity.present? && mood.present? && duration_minutes.present?
+  DEFAULT_TITLE = "Untitled"
+  TITLE_PROMPT = <<~PROMPT
+    Generate a short, descriptive, 3-to-6-word title that summarizes the user question for a chat conversation.
+  PROMPT
+
+
+  def generate_title_from_first_message
+    return unless title == DEFAULT_TITLE
+
+    first_user_message = messages.where(role: "user").order(:created_at).first
+    return if first_user_message.nil?
+
+    response = RubyLLM.chat.with_instructions(TITLE_PROMPT).ask(first_user_message.content)
+    update(title: response.content)
   end
 end

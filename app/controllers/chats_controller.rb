@@ -8,7 +8,8 @@ class ChatsController < ApplicationController
 
   def show
     @messages = @chat.messages.order(created_at: :asc)
-    @musics   = @chat.musics
+    @message = Message.new()
+    # @musics   = @chat.musics
   end
 
   def new
@@ -17,8 +18,11 @@ class ChatsController < ApplicationController
 
   def create
     @chat = current_user.chats.new(chat_params)
+
     if @chat.save
-      redirect_to @chat, notice: "Session musicale créée avec succès !"
+      # créer le message et je met à jour le mood de @chat
+
+      redirect_to @chat
     else
       render :new, status: :unprocessable_entity
     end
