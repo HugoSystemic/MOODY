@@ -1,7 +1,8 @@
 class MessagesController < ApplicationController
   before_action :authenticate_user!
+  # before_action :set_chat
 
-  SYSTEM_PROMPT_FOR_ACTIVITIES = "Can you find an activity and a duration depending on that message \n\n Please return a json format with this keys : { 'message'=> une réponse récapitulant les infos du message du user, 'activity'=> an activity, 'duration'=> a duration in seconds, 'found'=> true/false if you managed to find an activity and a duration }\n\n the key 'message' should return a message with a link to a youtube video that match my mood, activity and duration"
+  SYSTEM_PROMPT_FOR_ACTIVITIES = "Can you find an activity and a duration depending on that message \n\n Please return a json format with this keys : { 'message'=> une réponse récapitulant les infos du message du user, 'activity'=> an activity, 'duration'=> a duration in seconds, 'found'=> true/false if you managed to find an activity and a duration }\n\n the key 'message' should return a message with a link to a youtube video that match my mood, activity and duration\n\n check that the video is still accessible"
   SYSTEM_PROMPT_MUSIC_URLS = "Return a message with a link to a youtube video that match my mood, activity and duration"
 
   # GET /chats/:chat_id/messages

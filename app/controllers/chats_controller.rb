@@ -1,6 +1,6 @@
 class ChatsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_chat, only: [:show, :edit, :update, :destroy]
+  SYSTEM_PROMPT_FOR_MOOD = "Please return a json format with this keys : { 'message'=> String, 'mood'=> the mood, 'found'=> true/false if you managed to find a mood }\n\n the key 'message' should return a short text to resume the mood of the user from the message and ask him what activity he will do and for how long \n\n "
 
   def index
     @chats = Chat.all.order(created_at: :desc)
@@ -9,20 +9,36 @@ class ChatsController < ApplicationController
   def show
     @messages = @chat.messages.order(created_at: :asc)
     @message = Message.new()
-    # @musics   = @chat.musics
-  end
-
-  def new
-    @chat = Chat.new
   end
 
   def create
     @chat = current_user.chats.new(chat_params)
 
     if @chat.save
-      # créer le message et je met à jour le mood de @chat
+      if params[:message].present? && params[:message][:content].present?
+        @message = @chat.messages.new(
+          content: params[:message][:content],
+          role: 'user'
+        )
 
-      redirect_to @chat
+        if @message.save
+          @ruby_llm_chat = RubyLLM.chat
+          build_conversation_history()
+
+          response = @ruby_llm_chat.with_instructions(SYSTEM_PROMPT_FOR_MOOD).ask(@message.content)
+          parsed_response = JSON.parse(response.content)
+          if parsed_response["found"] == true
+            @chat.update(mood: parsed_response["mood"])
+            @chat.messages.create(role: "assistant", content: parsed_response["message"])
+          end
+        else
+          #
+        end
+      end
+
+
+
+      redirect_to @chat, notice: "Chat créé avec succès !"
     else
       render :new, status: :unprocessable_entity
     end
@@ -33,16 +49,16 @@ class ChatsController < ApplicationController
 
   def update
     if @chat.update(chat_params)
-      redirect_to @chat, notice: "Session mise à jour !"
+      redirect_to @chat, notice: "Chat mis à jour !"
     else
       render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @chat = Chat.find(params[:id])
     @chat.destroy
-    redirect_to chats_path, notice: "Session supprimée."
+      flash[:alert] = "Chat supprimé."
+      redirect_to chats_path
   end
 
   private
@@ -52,6 +68,12 @@ class ChatsController < ApplicationController
   end
 
   def chat_params
-    params.require(:chat).permit(:title)
+    params.require(:chat).permit(:title, :mood, :activity, :duration)
+  end
+
+  def build_conversation_history
+    @chat.messages.each do |message|
+      @ruby_llm_chat.add_message(message)
+    end
   end
 end
