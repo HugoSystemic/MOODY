@@ -12,22 +12,8 @@
     <% end %>
   </div>
 
-  <h4>Musiques</h4>
-  <ul class="list-group mb-4">
-    <% @musics.each do |music| %>
-      <li class="list-group-item">
-        <strong><%= music.title %></strong> - Mood : <%= music.mood %> - Durée : <%= music.duration_minutes %> min
-        <br>
-        <a href="<%= music.video_url %>" target="_blank">Écouter sur YouTube</a>
-      </li>
-    <% end %>
-  </ul>
-
-  <div class="d-flex gap-2">
-    <%= link_to "Éditer ce chat", edit_chat_path(@chat), class: "btn btn-secondary" %>
-
-    <%= button_to "Supprimer", chat_path(@chat), method: :delete, data: { confirm: "Voulez-vous vraiment supprimer cette session ?" }, class: "btn btn-danger" %>
-
-    <%= link_to "Retour à mes chats", chats_path, class: "btn btn-outline-primary" %>
-  </div>
+  <%= simple_form_for([@chat, @message]) do |f| %>
+    <%= f.input :content %>
+    <%= f.submit %>
+  <% end %>
 </div>
