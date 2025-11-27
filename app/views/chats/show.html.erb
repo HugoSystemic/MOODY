@@ -21,9 +21,7 @@
   <h4>Messages</h4>
   <div class="mb-4">
     <% @messages.each do |message| %>
-      <div class="p-2 mb-2 border rounded <%= message.role == 'user' ? 'bg-light' : 'bg-warning text-dark' %>">
-        <strong><%= message.role.capitalize %> :</strong> <%= message.content %>
-      </div>
+      <%= render 'messages/message_bubble', message: message %>
     <% end %>
   </div>
 
@@ -32,3 +30,7 @@
     <%= f.submit %>
   <% end %>
 </div>
+
+
+
+<%= @parsed_reponse %>
