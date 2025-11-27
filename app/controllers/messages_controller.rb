@@ -31,8 +31,9 @@ class MessagesController < ApplicationController
           @chat.messages.create(
             role: "assistant",
             content: parsed_response["message"],
-            url_recommandation: parsed_response["youtube_url"]
-          )
+            url_recommandation: parsed_response["youtube_url"])
+
+            create_music(parsed_response)
         end
 
       else
@@ -52,6 +53,20 @@ class MessagesController < ApplicationController
   end
 
   private
+
+  def create_music(parsed_response)
+    music = Music.new(
+      category: "musique",
+      duration_minutes: parsed_response["duration"],
+      video_url: parsed_response["youtube_url"],
+      title: parsed_response["video_title"]
+    )
+
+      music.chat = @chat
+      music.save
+
+
+  end
 
   def message_params
     params.require(:message).permit(:content)
