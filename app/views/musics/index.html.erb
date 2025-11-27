@@ -1,34 +1,13 @@
-<div class="container mt-4">
-  <h1 class="mb-4">Mes musiques</h1>
+<div class="container mt-5">
+  <h1>Mes musiques</h1>
 
-  <% if @musics.any? %>
-    <div class="list-group">
-      <% @musics.each do |music| %>
-        <div class="list-group-item">
-          <h5><%= music.title || "Titre non renseigné" %></h5>
-
-          <p>
-            <strong>URL :</strong>
-            <%= link_to music.video_url, music.video_url, target: "_blank" %>
-          </p>
-
-          <p>
-            <strong>Durée :</strong>
-            <%= music.duration_minutes.present? ? "#{music.duration_minutes} min" : "Non renseignée" %>
-          </p>
-
-          <p>
-            <strong>Catégorie :</strong>
-            <%= music.category || "Non renseignée" %>
-          </p>
-
-          <hr>
-
-          <small>Chat : <%= link_to music.chat.title, chat_path(music.chat) %></small>
-        </div>
-      <% end %>
+  <% @musics.each do |music| %>
+    <div class="card mb-3 p-3 shadow-sm">
+      <h5><%= music.title %></h5>
+      <p>Durée : <%= music.duration_minutes %> min</p>
+      <p>Catégorie : <%= music.category %></p>
+      <%= link_to "Écouter", music.video_url, target: "_blank", class: "btn btn-primary btn-sm" %>
     </div>
-  <% else %>
-    <p>Aucune musique enregistrée pour le moment.</p>
   <% end %>
 </div>
+

@@ -1,12 +1,18 @@
-<%= simple_form_for([chat, message]) do |f| %>
-  <div class="mb-3">
+<%= simple_form_for([chat, message], html: { class: "d-flex gap-2 align-items-center" }) do |f| %>
+  <div class="flex-grow-1 mb-3">
     <%= f.input :content,
-                label: "Votre message pour Moody",
+                label: false,
                 as: :text,
-                input_html: { rows: 3, placeholder: "Décrivez l'ambiance que vous voulez, les styles, ce que vous aimez / n'aimez pas..." } %>
+                input_html: {
+                  class: "form-control rounded-3 shadow",
+                  rows: 2,
+                  placeholder: "Écris ton message pour Moody...",
+                  style: "background-color: #0c1929; color: #FFFFFF; border: 1px solid #9963b8;"
+                } %>
   </div>
-
-  <div class="d-flex justify-content-end">
-    <%= f.button :submit, "Envoyer", class: "btn btn-primary" %>
-  </div>
+  <%= f.submit "Envoyer", class: "btn", style: "background-color: #f23263; color: #FFFFFF; border-radius: 1.5rem; padding: 0.5rem 1.5rem;",
+                  data: { turbo: false },
+                  onmouseover: "this.style.backgroundColor='#d12956'",
+                  onmouseout: "this.style.backgroundColor='#f23263'" %>
 <% end %>
+
