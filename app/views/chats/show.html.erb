@@ -1,6 +1,21 @@
 <div class="container mt-5">
-  <h2><%= @chat.title %></h2>
+  <div id="<%= dom_id(@chat, :header) %>" class="d-flex align-items-center">
+    <h2 class="me-3"><%= @chat.title %></h2>
 
+    <%= button_to toggle_favorite_chat_path(@chat),
+        method: :patch,
+        class: "btn btn-link p-0",
+        data: { turbo_frame: "_top" } do %>
+
+      <%
+        # Détermine la classe de l'icône : pleine (liked=true) ou vide (liked=false)
+        # Nécessite Font Awesome (fas et far)
+        star_liked = @chat.liked ? "fas fa-star text-warning" : "far fa-star text-muted"
+        star_title = @chat.liked ? "Retirer des favoris" : "Ajouter aux favoris"
+      %>
+      <i class="<%= star_liked %>" style="font-size: 1.5rem;" title="<%= star_title %>"></i>
+    <% end %>
+  </div>
   <hr>
 
   <h4>Messages</h4>

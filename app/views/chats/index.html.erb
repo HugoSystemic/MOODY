@@ -1,14 +1,36 @@
 <div class="container mt-5">
   <h1 class="mb-4">Mes chats</h1>
 
+  <div class="mb-3 d-flex align-items-center">
+
+    <%= link_to 'Toutes les sessions', chats_path,
+        class: "btn btn-#{'primary' unless params[:liked].present?} btn-sm me-2" %>
+
+    <%= link_to '★ Favoris', chats_path(liked: true),
+        class: "btn btn-#{'primary' if params[:liked] == 'true'} btn-sm me-2" %>
+
+    <small class="ms-auto text-muted">Affichage : **<%= @filter_title %>**</small>
+  </div>
+
+  <hr>
+
   <% @chats.each do |chat| %>
-    <div class="card mb-3 p-3">
-      <h5><%= link_to chat.title, chat_path(chat), class: "text-decoration-none" %></h5>
-      <p>Utilisateur : <%= chat.user.email %></p>
-      <p>Créé le : <%= chat.created_at.strftime("%d/%m/%Y %H:%M") %></p>
+    <div class="card mb-3 p-3 d-flex flex-row align-items-center">
+
+      <h5 class="flex-grow-1 mb-0 me-2">
+        <%= link_to chat.title, chat_path(chat), class: "text-decoration-none" %>
+
+        <% if chat.liked %>
+          <i class="fas fa-star text-warning ms-1" style="font-size: 1rem;" title="Favori"></i>
+        <% end %>
+      </h5>
+
+      <div class="text-end">
+        <p class="mb-0 text-muted">Utilisateur : <%= chat.user.email %></p>
+        <p class="mb-0 text-muted small">Créé le : <%= chat.created_at.strftime("%d/%m/%Y %H:%M") %></p>
+      </div>
     </div>
   <% end %>
 
   <%= link_to "Créer une nouvelle session", new_chat_path, class: "btn btn-primary mt-3" %>
 </div>
-

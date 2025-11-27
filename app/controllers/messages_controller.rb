@@ -3,7 +3,7 @@ class MessagesController < ApplicationController
   # before_action :set_chat
 
   SYSTEM_PROMPT_FOR_ACTIVITIES = "Can you find an activity and a duration depending on that message \n\n Please return a json format with this keys : { 'message'=> une réponse récapitulant les infos du message du user, 'activity'=> an activity, 'duration'=> a duration in seconds, 'found'=> true/false if you managed to find an activity and a duration }\n\n the key 'message' should return a message with a link to a youtube video that match my mood, activity and duration\n\n check that the video is still accessible"
-  SYSTEM_PROMPT_MUSIC_URLS = "Return a message with a link to a youtube video that match my mood, activity and duration\n\n check that the video is still accessible on youtube"
+  SYSTEM_PROMPT_MUSIC_URLS = "**IMPERATIF : Renvoyez une réponse conviviale en français qui contient obligatoirement une seule URL YouTube VALIDÉE (vérifiez que la vidéo est accessible et pertinente pour le mood, l'activité et la durée de la conversation).**"
 
   # GET /chats/:chat_id/messages
   def index
