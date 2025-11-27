@@ -1,14 +1,15 @@
 <div class="container mt-5">
-  <h1 class="mb-4">Mes chats</h1>
+  <h1 class="mb-4 text-white">Mes chats</h1>
 
   <% @chats.each do |chat| %>
-    <div class="card mb-3 p-3">
-      <h5><%= link_to chat.title, chat_path(chat), class: "text-decoration-none" %></h5>
-      <p>Utilisateur : <%= chat.user.email %></p>
-      <p>Créé le : <%= chat.created_at.strftime("%d/%m/%Y %H:%M") %></p>
+    <div class="card mb-3 p-3 shadow border border-white" style="background-color: #0c1929; color: #FFFFFF;">
+      <h5>
+        <%= link_to chat.title, chat_path(chat), class: "text-decoration-none fw-bold", style: "color: #f23263;" %>
+      </h5>
+      <p class="mb-1">Utilisateur : <span class="text-coral"><%= chat.user.email %></span></p>
+      <p class="mb-0 text-white-50">Créé le : <%= chat.created_at.strftime("%d/%m/%Y %H:%M") %></p>
     </div>
   <% end %>
 
-  <%= link_to "Créer une nouvelle session", new_chat_path, class: "btn btn-primary mt-3" %>
+  <%= link_to "Créer une nouvelle session", new_chat_path, class: "btn btn-coral mt-3 shadow", style: "color: #f23263;" %>
 </div>
-
