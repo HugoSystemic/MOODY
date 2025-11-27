@@ -1,6 +1,6 @@
 <div class="container mt-5">
   <div id="<%= dom_id(@chat, :header) %>" class="d-flex align-items-center">
-    <h2 class="me-3"><%= @chat.title %></h2>
+     <h2 style="color: #ffffff;"><%= @chat.title %></h2>
 
     <%= button_to toggle_favorite_chat_path(@chat),
         method: :patch,
@@ -25,10 +25,7 @@
     <% end %>
   </div>
 
-  <%= simple_form_for([@chat, @message]) do |f| %>
-    <%= f.input :content %>
-    <%= f.submit %>
-  <% end %>
+  <%= render 'form', chat: @chat, message: @message %>
 </div>
 
 

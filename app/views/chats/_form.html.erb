@@ -1,0 +1,11 @@
+<%= simple_form_for([chat, message]) do |f| %>
+  <div class="mb-3">
+    <%= f.input :content,
+                label: "Votre message pour Moody",
+                as: :text,
+                input_html: { class: "form-control", rows: 3, placeholder: "Écrivez votre message..." } %>
+  </div>
+  <div class="d-flex justify-content-end">
+    <%= f.button :submit, "Envoyer", class: "btn btn-primary" %>
+  </div>
+<% end %>
