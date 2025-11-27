@@ -1,36 +1,52 @@
-<div class="container mt-5">
-  <h1 class="mb-4 text-white">Mes chats</h1>
+<div style="background:#FFFFFF; min-height:100vh; padding-top:40px;">
 
-  <div class="mb-3 d-flex align-items-center">
+  <div class="container mt-5" style="color:#0C1929;">
+    <h1 class="mb-4 fw-bold" style="color:#0C1929;">Mes chats</h1>
 
-    <%= link_to 'Toutes les sessions', chats_path,
-        class: "btn btn-#{'primary' unless params[:liked].present?} btn-sm me-2" %>
+    <div class="mb-3 d-flex align-items-center">
 
-    <%= link_to '★ Favoris', chats_path(liked: true),
-        class: "btn btn-#{'primary' if params[:liked] == 'true'} btn-sm me-2" %>
+      <%= link_to 'Toutes les sessions', chats_path,
+          class: "btn btn-sm me-2 #{'btn-primary' unless params[:liked].present?}" %>
 
-    <small class="ms-auto text-muted">Affichage : **<%= @filter_title %>**</small>
+      <%= link_to '★ Favoris', chats_path(liked: true),
+          class: "btn btn-sm me-2 #{'btn-primary' if params[:liked] == 'true'}" %>
+
+      <small class="ms-auto text-muted">Affichage : <strong><%= @filter_title %></strong></small>
+    </div>
+
+    <hr>
+
+    <% @chats.each do |chat| %>
+      <div class="card mb-3 p-3 d-flex flex-row align-items-center shadow"
+           style="background-color:#f23263; border:none; border-radius:14px; color:#FFFFFF;">
+
+        <h5 class="flex-grow-1 mb-0 me-2">
+          <%= link_to chat.title,
+              chat_path(chat),
+              class: "text-decoration-none fw-bold",
+              style: "color:#FFFFFF;" %>
+
+          <% if chat.liked %>
+            <i class="fas fa-star ms-1" style="font-size:1rem; color:#FFD700;" title="Favori"></i>
+          <% end %>
+        </h5>
+
+        <div class="text-end">
+          <p class="mb-1">Utilisateur :
+            <span style="color:#FFFFFF;"><%= chat.user.email %></span>
+          </p>
+          <p class="mb-0" style="color:#FFFFFFCC;">
+            Créé le : <%= chat.created_at.strftime("%d/%m/%Y %H:%M") %>
+          </p>
+        </div>
+      </div>
+    <% end %>
+
+    <%= link_to "Créer une nouvelle session",
+        new_chat_path,
+        class: "btn mt-3 shadow fw-bold",
+        style: "background:#f23263; color:#FFFFFF; border-radius:50px; padding:10px 25px;" %>
   </div>
 
-  <hr>
-
-  <% @chats.each do |chat| %>
-    <div class="card mb-3 p-3 d-flex flex-row align-items-center shadow border border-white" style="background-color: #0c1929; color: #FFFFFF;">
-
-      <h5 class="flex-grow-1 mb-0 me-2">
-        <%= link_to chat.title, chat_path(chat), class: "text-decoration-none fw-bold", style: "color: #f23263;" %>
-
-        <% if chat.liked %>
-          <i class="fas fa-star text-warning ms-1" style="font-size: 1rem;" title="Favori"></i>
-        <% end %>
-      </h5>
-
-      <div class="text-end">
-        <p class="mb-1">Utilisateur : <span class="text-coral"><%= chat.user.email %></span></p>
-      <p class="mb-0 text-white-50">Créé le : <%= chat.created_at.strftime("%d/%m/%Y %H:%M") %></p>
-      </div>
-    </div>
-  <% end %>
-
-  <%= link_to "Créer une nouvelle session", new_chat_path, class: "btn btn-coral mt-3 shadow", style: "color: #f23263;" %>
 </div>
+
