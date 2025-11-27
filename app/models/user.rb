@@ -4,4 +4,5 @@ class User < ApplicationRecord
 
   has_many :chats, dependent: :destroy
   has_many :musics, dependent: :destroy
+  has_one_attached :avatar
 end
