@@ -2,8 +2,8 @@ class MessagesController < ApplicationController
   before_action :authenticate_user!
   # before_action :set_chat
 
-SYSTEM_PROMPT_FOR_ACTIVITIES = "Can you find an activity and a duration depending on that message \n\n Please return a json format with this keys : { 'message'=> une réponse récapitulant les infos du message du user, 'activity'=> an activity, 'duration'=> a duration in seconds, 'found'=> true/false if you managed to find an activity and a duration, 'youtube_url'=> the direct YouTube video URL that match my mood, activity and duration, 'video_title'=> the title of the YouTube video }\n\n the key 'message' should return a message WITHOUT the youtube link (just the text)\n\n check that the video is still accessible"
-SYSTEM_PROMPT_MUSIC_URLS = "Return a json format with these keys: { 'message'=> a text message (WITHOUT the youtube link), 'youtube_url'=> the direct YouTube video URL that match my mood, activity and duration, 'video_title'=> the title of the YouTube video }\n\n check that the video is still accessible on youtube"
+  SYSTEM_PROMPT_FOR_ACTIVITIES = "Can you find an activity and a duration depending on that message \n\n Please return a json format with this keys : { 'message'=> une réponse récapitulant les infos du message du user, 'activity'=> an activity, 'duration'=> a duration in seconds, 'found'=> true/false if you managed to find an activity and a duration, 'youtube_url'=> the direct YouTube video URL that match my mood, activity and duration, 'video_title'=> the title of the YouTube video }\n\n the key 'message' should return a message WITHOUT the youtube link (just the text)\n\n check that the video is still accessible"
+  SYSTEM_PROMPT_MUSIC_URLS = "Return a json format with these keys: { 'message'=> a text message (WITHOUT the youtube link), 'youtube_url'=> the direct YouTube video URL that match my mood, activity and duration, 'video_title'=> the title of the YouTube video }\n\n check that the video is still accessible on youtube"
 
   # GET /chats/:chat_id/messages
   def index
@@ -21,7 +21,7 @@ SYSTEM_PROMPT_MUSIC_URLS = "Return a json format with these keys: { 'message'=> 
 
     if @message.save
       @ruby_llm_chat = RubyLLM.chat
-      build_conversation_history()
+      build_conversation_history
 
       if @chat.messages.where(role: 'assistant').size == 1
         response = @ruby_llm_chat.with_instructions(SYSTEM_PROMPT_FOR_ACTIVITIES).ask(@message.content)
@@ -31,7 +31,8 @@ SYSTEM_PROMPT_MUSIC_URLS = "Return a json format with these keys: { 'message'=> 
           @chat.messages.create(
             role: "assistant",
             content: parsed_response["message"],
-            url_recommandation: parsed_response["youtube_url"])
+            url_recommandation: parsed_response["youtube_url"]
+          )
         end
 
       else
@@ -39,10 +40,11 @@ SYSTEM_PROMPT_MUSIC_URLS = "Return a json format with these keys: { 'message'=> 
         @chat.messages.create(
           role: "assistant",
           content: response.content,
-          url_recommandation: parsed_response["youtube_url"])
+          url_recommandation: parsed_response["youtube_url"]
+        )
       end
 
-      @chat.generate_title_from_first_message()
+      @chat.generate_title_from_first_message
       redirect_to @chat
     else
       render "chats/show", status: :unprocessable_entity
@@ -63,6 +65,6 @@ SYSTEM_PROMPT_MUSIC_URLS = "Return a json format with these keys: { 'message'=> 
 
   def instructions
     [SYSTEM_PROMPT, challenge_context, @challenge.system_prompt]
-    .compact.join("\n\n")
-end
+      .compact.join("\n\n")
+  end
 end
