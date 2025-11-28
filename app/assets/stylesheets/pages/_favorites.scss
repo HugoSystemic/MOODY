@@ -1,0 +1,150 @@
+.favorites-container {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+
+  @media (max-width: 768px) {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  h1 {
+    color: $text-primary;
+    font-weight: 700;
+    margin-bottom: 2.5rem;
+    text-align: center;
+  }
+}
+
+.favorites-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.favorite-item {
+  background: linear-gradient(135deg, rgba($accent-coral, 0.2) 0%, rgba($accent-purple, 0.2) 100%);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    border-color: rgba($accent-pink, 0.3);
+  }
+
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.5rem !important;
+
+    @media (min-width: 768px) {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    @media (max-width: 768px) {
+      padding: 1.25rem !important;
+    }
+  }
+
+  .favorite-content {
+    flex: 1;
+    padding-right: 1rem;
+
+    @media (max-width: 768px) {
+      padding-right: 0;
+    }
+
+    h5 {
+      color: $text-primary;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      font-size: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+
+      a {
+        color: $text-primary;
+        text-decoration: none;
+        transition: all 0.2s ease;
+
+        &:hover {
+          color: $accent-pink;
+          transform: translateX(4px);
+        }
+      }
+
+      .badge {
+        background: $yellow;
+        color: $primary-dark;
+        font-size: 0.875rem;
+        padding: 0.25rem 0.5rem;
+        border-radius: 0.5rem;
+      }
+    }
+
+    .favorite-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+
+      small {
+        color: $text-secondary;
+        font-size: 0.875rem;
+      }
+
+      .badge {
+        background: rgba(255, 255, 255, 0.1);
+        color: $text-primary;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        margin-right: 0.5rem;
+        margin-bottom: 0.5rem;
+        display: inline-block;
+      }
+    }
+  }
+
+  .favorite-action {
+    display: flex;
+    align-items: center;
+
+    @media (max-width: 768px) {
+      width: 100%;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+
+    .btn {
+      min-width: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+  }
+}
+
+.favorites-empty {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: $text-secondary;
+
+  p {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .btn {
+    margin-top: 1rem;
+  }
+}

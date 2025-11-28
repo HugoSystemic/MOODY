@@ -1,0 +1,53 @@
+body {
+  background-color: $primary-dark;
+  color: $text-primary;
+  font-family: $body-font;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+  padding: 2rem 1rem;
+  min-height: 80vh;
+  margin-top: 1rem;
+  width: 100%;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+
+  @media (max-width: 768px) {
+    padding: 1rem 0.75rem;
+    margin-top: 0.5rem;
+  }
+}
+
+// Custom scrollbar
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: $primary-darker;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: $accent-red;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: $accent-pink;
+  }
+}
+
+// Links
+a {
+  text-decoration: none;
+  transition: all 0.2s ease;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}

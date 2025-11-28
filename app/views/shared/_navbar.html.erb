@@ -13,11 +13,11 @@
         <% if user_signed_in? %>
           <li class="nav-item"><%= link_to "Accueil", root_path, class: "nav-link", style: "color:#0c1929;" %></li>
           <li class="nav-item"><%= link_to "Mes chats", chats_path, class: "nav-link", style: "color:#0c1929;" %></li>
-          <li class="nav-item"><%= link_to "Mes musiques", musics_path, class: "nav-link", style: "color:#0c1929;" %></li>
+          <li class="nav-item"><%= link_to "Mes vidéos", musics_path, class: "nav-link", style: "color:#0c1929;" %></li>
 
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" style="color:#0c1929;">
-              <%= image_tag current_user.avatar.attached? ? url_for(current_user.avatar) : "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "rounded-circle border border-dark", height: "30" %>
+              <%= image_tag "profile.png", alt: "Photo Profile", class: "rounded-circle border border-dark", height: "30" %>
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
               <li><%= link_to "Mon profil", profile_path, class: "dropdown-item" %></li>

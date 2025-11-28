@@ -1,13 +1,34 @@
-<div class="container mt-5">
+<div class="container musics-container">
   <h1>Mes musiques</h1>
 
-  <% @musics.each do |music| %>
-    <div class="card mb-3 p-3 shadow-sm">
-      <h5><%= music.title %></h5>
-      <p>Durée : <%= music.duration_minutes %> min</p>
-      <p>Catégorie : <%= music.category %></p>
-      <%= link_to "Écouter", music.video_url, target: "_blank", class: "btn btn-primary btn-sm" %>
+  <% if @musics.any? %>
+    <% @musics.each do |music| %>
+      <div class="music-card">
+        <div class="music-info">
+          <h5><%= music.title %></h5>
+          <div class="music-details">
+            <div class="detail-item">
+              <i class="fas fa-clock"></i>
+              <span>Durée : <strong><%= music.duration_minutes %> min</strong></span>
+            </div>
+            <div class="detail-item">
+              <i class="fas fa-tag"></i>
+              <span>Catégorie : <strong><%= music.category %></strong></span>
+            </div>
+          </div>
+        </div>
+        <div class="music-action">
+          <%= link_to music.video_url, target: "_blank", rel: "noopener noreferrer", class: "btn btn-primary" do %>
+            <i class="fas fa-play"></i>
+            <span>Écouter</span>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="text-center text-muted py-5">
+      <p class="fs-5">Aucune musique sauvegardée.</p>
+      <p>Commencez une conversation avec Moody pour découvrir des musiques !</p>
     </div>
   <% end %>
 </div>
-
