@@ -27,22 +27,29 @@ class MessagesController < ApplicationController
         response = @ruby_llm_chat.with_instructions(SYSTEM_PROMPT_FOR_ACTIVITIES).ask(@message.content)
         parsed_response = JSON.parse(response.content)
         if parsed_response["found"] == true
+
+          # récupérer un title
           @chat.update(activity: parsed_response["activity"], duration: parsed_response["duration"])
+          @chat.generate_title_from_first_message()
           @chat.messages.create(
             role: "assistant",
             content: parsed_response["message"],
-            url_recommandation: parsed_response["youtube_url"])
+            url_recommandation: parsed_response["youtube_url"]
+          )
 
-            create_music(parsed_response)
+          create_music(parsed_response)
         end
 
       else
         response = @ruby_llm_chat.with_instructions(SYSTEM_PROMPT_MUSIC_URLS).ask(@message.content)
+        parsed_response = JSON.parse(response.content)
         @chat.messages.create(
           role: "assistant",
-          content: response.content,
+          content: parsed_response["message"],
           url_recommandation: parsed_response["youtube_url"]
         )
+
+        create_music(parsed_response)
       end
 
       @chat.generate_title_from_first_message
