@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <div class="container mt-5">
   <h1 class="mb-4">Mes chats</h1>
 
@@ -6,8 +7,62 @@
       <h5><%= link_to chat.title, chat_path(chat), class: "text-decoration-none" %></h5>
       <p>Utilisateur : <%= chat.user.email %></p>
       <p>Créé le : <%= chat.created_at.strftime("%d/%m/%Y %H:%M") %></p>
+=======
+<div class="chats-list-container">
+  <div class="container">
+    <div class="chats-list-header">
+      <h1>Mes chats</h1>
+
+      <div class="chats-filters">
+        <%= link_to 'Toutes les sessions', chats_path,
+            class: "btn btn-sm #{'btn-primary' unless params[:liked].present?}" %>
+
+        <%= link_to '★ Favoris', chats_path(liked: true),
+            class: "btn btn-sm #{'btn-primary' if params[:liked] == 'true'}" %>
+
+        <small class="filter-info">
+          Affichage : <strong><%= @filter_title %></strong>
+        </small>
+      </div>
+
+      <hr>
+>>>>>>> e8bd3cc45fdb9427d0e05f2bb2c9e356d9962a3c
     </div>
   <% end %>
 
+<<<<<<< HEAD
   <%= link_to "Créer une nouvelle session", new_chat_path, class: "btn btn-primary mt-3" %>
+=======
+    <% if @chats.any? %>
+      <% @chats.each do |chat| %>
+        <div class="chat-card">
+          <h5 class="chat-title">
+            <%= link_to chat.title, chat_path(chat) %>
+            <% if chat.liked %>
+              <i class="fas fa-star favorite-star" title="Favori"></i>
+            <% end %>
+          </h5>
+
+          <div class="chat-meta">
+            <span class="chat-user">
+              Utilisateur : <%= chat.user.email %>
+            </span>
+            <span class="chat-date">
+              Créé le : <%= chat.created_at.strftime("%d/%m/%Y %H:%M") %>
+            </span>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="text-center text-muted py-5">
+        <p class="fs-5">Aucun chat trouvé.</p>
+        <p>Créez votre première session pour commencer !</p>
+      </div>
+    <% end %>
+
+    <%= link_to "Créer une nouvelle session",
+        new_chat_path,
+        class: "btn create-chat-btn" %>
+  </div>
+>>>>>>> e8bd3cc45fdb9427d0e05f2bb2c9e356d9962a3c
 </div>

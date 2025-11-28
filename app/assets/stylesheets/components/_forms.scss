@@ -1,0 +1,94 @@
+.form-control {
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: $text-primary;
+  padding: 0.75rem 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  &::placeholder {
+    color: $text-muted;
+  }
+
+  &:focus {
+    border-color: $accent-pink;
+    background-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 0 0.2rem rgba($accent-pink, 0.25), 0 4px 12px rgba(0, 0, 0, 0.15);
+    color: $text-primary;
+    outline: none;
+  }
+
+  &:hover:not(:focus) {
+    border-color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.12);
+  }
+}
+
+.message-form {
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  label {
+    display: none;
+  }
+}
+
+.form-control-lg {
+  padding: 1rem 1.25rem;
+  font-size: 1.1rem;
+  border-radius: 1rem;
+}
+
+textarea.form-control {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+  }
+}
+
+.simple_form {
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  label {
+    color: $text-primary;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .form-control {
+    width: 100%;
+  }
+}
+
+.message-form {
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+
+    @media (max-width: 768px) {
+      justify-content: center;
+    }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      min-width: 120px;
+      justify-content: center;
+    }
+  }
+}

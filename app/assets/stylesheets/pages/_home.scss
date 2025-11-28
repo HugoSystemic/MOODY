@@ -1,1 +1,130 @@
-// Specific CSS for your home-page
+.home-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+  min-height: calc(100vh - 100px);
+  padding: 4rem 1rem 2rem;
+  animation: fadeIn 0.6s ease-out;
+  margin-top: 2rem;
+
+  @media (max-width: 768px) {
+    min-height: calc(100vh - 80px);
+    padding: 3rem 0.75rem 1.5rem;
+    margin-top: 1.5rem;
+  }
+}
+
+.home-logo {
+  margin-bottom: 1.5rem;
+  animation: float 3s ease-in-out infinite;
+  transition: transform 0.3s ease;
+
+  @media (max-width: 768px) {
+    margin-bottom: 1rem;
+
+    img {
+      height: 150px !important;
+    }
+  }
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  img {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease;
+  }
+}
+
+.home-tagline {
+  margin-bottom: 2rem; 
+  font-size: 1.25rem;
+  color: $text-primary;
+  font-weight: 400;
+  animation: fadeInUp 0.6s ease-out 0.2s both;
+
+  @media (max-width: 768px) {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.home-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  animation: fadeInUp 0.6s ease-out 0.4s both;
+
+  .form-group {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .form-control {
+    text-align: center;
+    font-size: 1.1rem;
+    padding: 1rem 1.25rem;
+    height: auto;
+    min-height: 60px;
+    max-width: 100%;
+    width: 100%;
+
+    @media (max-width: 768px) {
+      font-size: 1rem;
+      padding: 0.875rem 1rem;
+      min-height: 55px;
+    }
+  }
+
+  .btn-submit {
+    width: auto;
+    min-width: 150px;
+    padding: 1rem 2.5rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+
+    @media (max-width: 768px) {
+      padding: 0.875rem 2rem;
+      font-size: 1rem;
+      min-width: 140px;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}

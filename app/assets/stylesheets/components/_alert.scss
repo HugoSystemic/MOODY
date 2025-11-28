@@ -1,6 +1,31 @@
 .alert {
-  position: fixed;
-  bottom: 16px;
-  right: 16px;
+  border-radius: 0.75rem;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
+  margin: 0.5rem 1rem;
+  animation: slideDown 0.3s ease-out;
   z-index: 1000;
+
+  @media (max-width: 768px) {
+    margin: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
