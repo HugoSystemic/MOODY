@@ -1,5 +1,5 @@
 <div class="container musics-container">
-  <h1>Mes musiques</h1>
+  <h1>Mes vidéos</h1>
 
   <% if @musics.any? %>
     <% @musics.each do |music| %>
@@ -20,15 +20,15 @@
         <div class="music-action">
           <%= link_to music.video_url, target: "_blank", rel: "noopener noreferrer", class: "btn btn-primary" do %>
             <i class="fas fa-play"></i>
-            <span>Écouter</span>
+            <span>Lire</span>
           <% end %>
         </div>
       </div>
     <% end %>
   <% else %>
     <div class="text-center text-muted py-5">
-      <p class="fs-5">Aucune musique sauvegardée.</p>
-      <p>Commencez une conversation avec Moody pour découvrir des musiques !</p>
+      <p class="fs-5">Aucune vidéo sauvegardée.</p>
+      <p>Commencez une conversation avec Moody pour découvrir des vidéos !</p>
     </div>
   <% end %>
 </div>
