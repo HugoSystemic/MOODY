@@ -5,7 +5,19 @@ class Chat < ApplicationRecord
 
   DEFAULT_TITLE = "Untitled"
   TITLE_PROMPT = <<~PROMPT
-    Generate a short, descriptive, 3-to-6-word title that summarizes the user question for a chat conversation.
+  En te basant sur l’ensemble du contexte de la conversation, génère un titre concis et pertinent (3 à 6 mots) résumant le sujet principal ou le problème central abordé.
+
+    Exigences :
+    - Retourne uniquement le titre.
+    - Le titre doit être spécifique et refléter clairement le thème de la conversation.
+    - Utilise le Format Titre en français (Majuscule au début + noms/adjectifs importants en minuscule).
+    - Pas d’emojis, pas de guillemets, pas de ponctuation finale.
+    - Si plusieurs sujets apparaissent, concentre-toi sur le thème dominant.
+    - Si la conversation porte sur du dépannage, reflète le problème traité.
+    - Si la conversation est très courte, déduis le sujet principal à partir des éléments disponibles.
+    - Garde un ton professionnel, clair et lisible.
+
+    Retourne uniquement le titre final.
   PROMPT
 
   def generate_title_from_first_message
