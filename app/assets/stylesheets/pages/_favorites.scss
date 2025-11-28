@@ -1,6 +1,9 @@
 .favorites-container {
+  background: transparent; 
   padding-top: 2rem;
   padding-bottom: 2rem;
+  position: relative;
+  z-index: 1;
 
   @media (max-width: 768px) {
     padding-top: 1rem;
@@ -22,11 +25,12 @@
 }
 
 .favorite-item {
-  background: linear-gradient(135deg, rgba($accent-coral, 0.2) 0%, rgba($accent-purple, 0.2) 100%);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 1rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
 
