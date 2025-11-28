@@ -1,6 +1,14 @@
 // Define variables for your color scheme
 
-// For example:
+// Brand colors
+$primary-dark: #0c1929;
+$primary-darker: #0D2A3F;
+$accent-pink: #FF5A88;
+$accent-red: #FF4858;
+$accent-purple: #9963b8;
+$accent-coral: #f23263;
+
+// Standard colors
 $red: #FD1015;
 $blue: #0D6EFD;
 $yellow: #FFC65A;
@@ -8,3 +16,8 @@ $orange: #E67E22;
 $green: #1EDD88;
 $gray: #0E0000;
 $light-gray: #F4F4F4;
+
+// Text colors
+$text-primary: #FFFFFF;
+$text-secondary: rgba(255, 255, 255, 0.7);
+$text-muted: rgba(255, 255, 255, 0.5);

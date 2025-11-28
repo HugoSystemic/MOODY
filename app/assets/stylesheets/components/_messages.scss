@@ -1,0 +1,143 @@
+.message-bubble {
+  display: flex;
+  margin-bottom: 1.5rem;
+  animation: fadeInUp 0.3s ease-out;
+
+  &.user-message {
+    justify-content: flex-end;
+  }
+
+  &.ai-message {
+    justify-content: flex-start;
+  }
+
+  .bubble-content {
+    max-width: 70%;
+    padding: 1rem 1.25rem;
+    border-radius: 1.25rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    position: relative;
+    word-wrap: break-word;
+
+    @media (max-width: 768px) {
+      max-width: 85%;
+      padding: 0.875rem 1rem;
+    }
+
+    .message-header {
+      font-size: 0.875rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      opacity: 0.9;
+    }
+
+    .message-content {
+      line-height: 1.6;
+      color: $text-primary;
+
+      p {
+        margin-bottom: 0.5rem;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    .message-timestamp {
+      font-size: 0.75rem;
+      opacity: 0.6;
+      margin-top: 0.5rem;
+      text-align: right;
+    }
+  }
+
+  &.user-message .bubble-content {
+    background-color: $accent-purple;
+    border-bottom-right-radius: 0.25rem;
+  }
+
+  &.ai-message .bubble-content {
+    background-color: $accent-coral;
+    border-bottom-left-radius: 0.25rem;
+  }
+}
+
+.youtube-card {
+  margin-top: 1rem;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: none;
+    margin: 0;
+
+    .row {
+      margin: 0;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      min-height: 120px;
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+
+    .card-body {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      .card-title {
+        color: $text-primary;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .card-text {
+        color: $text-secondary;
+        font-size: 0.875rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .badge {
+        background-color: $accent-red;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        display: inline-block;
+        width: fit-content;
+      }
+    }
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
