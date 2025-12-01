@@ -16,7 +16,7 @@ gem "puma", ">= 5.0"
 
 gem "ostruct"
 
-gem "ruby_llm", "~> 1.2.0"
+gem "ruby_llm", "~> 1.9.1"
 
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"

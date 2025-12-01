@@ -3,6 +3,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :chats, dependent: :destroy
-  has_many :musics, dependent: :destroy
+  has_many :musics, through: :chats
   has_one_attached :avatar
 end

@@ -113,7 +113,7 @@ class ChatsController < ApplicationController
 
   def build_conversation_history
     @chat.messages.each do |message|
-      @ruby_llm_chat.add_message(message)
+      @ruby_llm_chat.add_message(message.slice(:role, :content))
     end
   end
 end
