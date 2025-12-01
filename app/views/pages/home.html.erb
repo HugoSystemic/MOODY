@@ -1,44 +1,22 @@
-<div class="container d-flex flex-column justify-content-center align-items-center text-center" style="min-height: 90vh;">
-  <%= image_tag "logo_moody.png", alt: "Moody Logo", height: "200", class: "mb-4 shadow-lg rounded-circle border border-white" %>
-
-  <p class="mb-4 fs-5 text-white">Trouve la musique qui correspond à ton mood.</p>
-
-<%= form_with model: @chat, url: chats_path, local: true, class: "d-flex flex-column gap-3 align-items-center w-100" do |f| %>
-  <%= f.hidden_field :title, value: "Nouveau chat" %>
-
-  <div class="w-100 d-flex justify-content-center">
-    <%= f.text_area :message_content,
-    placeholder: "Quel est ton mood du moment ?",
-    name: "message[content]",
-    class: "form-control form-control-lg rounded-3 shadow-sm text-center no-scrollbar",
-    style: "resize: none; max-width: 400px; height: 50px; padding: 0.75rem; font-size:1.1rem;" %>
-
+<div class="home-container">
+  <div class="home-logo">
+    <%= image_tag "logo_moody.png", alt: "Moody Logo", height: "200", class: "rounded-circle border border-white" %>
   </div>
 
-  <div class="w-100 d-flex justify-content-center">
-    <%= f.submit "Commencer", class: "btn btn-primary btn-lg px-4 rounded-3 shadow",
-        style: "background-color:#FF5A88; border:none; transition: all 0.2s;" %>
-  </div>
-<% end %>
+  <p class="home-tagline">Trouve la vidéo qui correspond à ton mood.</p>
 
-<style>
-  .btn-primary:hover {
-    background-color: #FF4858 !important;
-    transform: scale(1.02);
-  }
+  <%= form_with model: @chat, url: chats_path, local: true, class: "home-form" do |f| %>
+    <%= f.hidden_field :title, value: "Nouveau chat" %>
 
-  .form-control:focus {
-    box-shadow: 0 0 0 0.2rem rgba(255, 90, 136, 0.25);
-    border-color: #FF5A88;
-  }
+    <div class="form-group">
+      <%= f.text_area :message_content,
+          placeholder: "Quel est ton mood du moment ?",
+          name: "message[content]",
+          class: "form-control form-control-lg text-center no-scrollbar" %>
+    </div>
 
-  .no-scrollbar::-webkit-scrollbar {
-  width: 0px;
-  background: transparent;
-}
-
-  .no-scrollbar {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-</style>
+    <div class="form-group">
+      <%= f.submit "Commencer", class: "btn btn-primary btn-lg btn-submit" %>
+    </div>
+  <% end %>
+</div>

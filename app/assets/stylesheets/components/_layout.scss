@@ -1,0 +1,86 @@
+body {
+  background: $primary-dark; 
+  background-attachment: fixed;
+  color: $text-primary;
+  font-family: $body-font;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: radial-gradient(ellipse 120% 60% at 50% 0%,
+      rgba(255, 90, 136, 0.4) 0%,
+      rgba(255, 90, 136, 0.3) 15%,
+      rgba(153, 99, 184, 0.2) 30%,
+      rgba(153, 99, 184, 0.1) 50%,
+      transparent 70%
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  &::after {
+    content: '';
+    position: fixed;
+    top: -20%;
+    left: -20%;
+    width: 140%;
+    height: 140%;
+    background: radial-gradient(circle at 30% 20%, rgba(255, 90, 136, 0.2) 0%, transparent 40%),
+                radial-gradient(circle at 70% 30%, rgba(153, 99, 184, 0.15) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+}
+
+main {
+  flex: 1;
+  padding: 2rem 1rem;
+  min-height: 80vh;
+  margin-top: 1rem;
+  width: 100%;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  z-index: 1;
+
+  @media (max-width: 768px) {
+    padding: 1rem 0.75rem;
+    margin-top: 0.5rem;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: $primary-darker;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: $accent-red;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: $accent-pink;
+  }
+}
+
+a {
+  text-decoration: none;
+  transition: all 0.2s ease;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}

@@ -1,38 +1,79 @@
-<nav class="navbar navbar-expand-sm navbar-light bg-white shadow-sm">
+<nav class="navbar navbar-expand-sm navbar-light">
   <div class="container-fluid">
-    <%= link_to root_path, class: "navbar-brand d-flex align-items-center" do %>
-      <%= image_tag "logo_moody.png", alt: "Moody Logo", height: "50", class: "rounded-circle" %>
+    <%= link_to root_path, class: "navbar-brand" do %>
+      <%= image_tag "logo_moody.png", alt: "Moody Logo", class: "rounded-circle" %>
     <% end %>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarContent">
-      <ul class="navbar-nav ms-auto align-items-center">
-        <% if user_signed_in? %>
-          <li class="nav-item"><%= link_to "Accueil", root_path, class: "nav-link", style: "color:#0c1929;" %></li>
-          <li class="nav-item"><%= link_to "Mes chats", chats_path, class: "nav-link", style: "color:#0c1929;" %></li>
-          <li class="nav-item"><%= link_to "Mes musiques", musics_path, class: "nav-link", style: "color:#0c1929;" %></li>
-
+      <% if user_signed_in? %>
+        <ul class="navbar-nav navbar-nav-centered align-items-center">
+          <li class="nav-item">
+            <%= link_to root_path, class: "nav-link nav-pill" do %>
+              <i class="fas fa-home"></i>
+              <span>Nouveau Mood</span>
+            <% end %>
+          </li>
+          <li class="nav-item">
+            <%= link_to chats_path, class: "nav-link nav-pill" do %>
+              <i class="fas fa-comments"></i>
+              <span>Mes chats</span>
+            <% end %>
+          </li>
+          <li class="nav-item">
+            <%= link_to musics_path, class: "nav-link nav-pill" do %>
+              <i class="fas fa-music"></i>
+              <span>Mes vidéos</span>
+            <% end %>
+          </li>
+        </ul>
+        <ul class="navbar-nav navbar-nav-right align-items-center">
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" style="color:#0c1929;">
-              <%= image_tag current_user.avatar.attached? ? url_for(current_user.avatar) : "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "rounded-circle border border-dark", height: "30" %>
+            <a class="nav-link nav-pill dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <%= image_tag current_user.avatar.attached? ? url_for(current_user.avatar) : "profile.png", class: "navbar-avatar rounded-circle", alt: "Avatar" %>
             </a>
-            <ul class="dropdown-menu dropdown-menu-end">
-              <li><%= link_to "Mon profil", profile_path, class: "dropdown-item" %></li>
-              <li><%= link_to "Paramètres", settings_profile_path, class: "dropdown-item" %></li>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+              <li>
+                <%= link_to profile_path, class: "dropdown-item" do %>
+                  <i class="fas fa-user"></i>
+                  <span>Mon profil</span>
+                <% end %>
+              </li>
+              <li>
+                <%= link_to settings_profile_path, class: "dropdown-item" do %>
+                  <i class="fas fa-cog"></i>
+                  <span>Paramètres</span>
+                <% end %>
+              </li>
               <li><hr class="dropdown-divider"></li>
               <li>
-                <%= button_to "Se déconnecter", destroy_user_session_path, method: :delete, form_class: "dropdown-item p-0 m-0", class: "w-100 text-start btn btn-link text-danger" %>
+                <%= button_to destroy_user_session_path, method: :delete, form_class: "dropdown-item p-0 m-0", class: "w-100 text-start btn btn-link text-danger" do %>
+                  <i class="fas fa-sign-out-alt"></i>
+                  <span>Se déconnecter</span>
+                <% end %>
               </li>
             </ul>
           </li>
-        <% else %>
-          <li class="nav-item"><%= link_to "Se connecter", new_user_session_path, class: "nav-link", style: "color:#0c1929;" %></li>
-          <li class="nav-item"><%= link_to "S'inscrire", new_user_registration_path, class: "nav-link", style: "color:#0c1929;" %></li>
-        <% end %>
-      </ul>
+        </ul>
+      <% else %>
+        <ul class="navbar-nav ms-auto align-items-center">
+          <li class="nav-item">
+            <%= link_to new_user_session_path, class: "nav-link nav-pill" do %>
+              <i class="fas fa-sign-in-alt"></i>
+              <span>Se connecter</span>
+            <% end %>
+          </li>
+          <li class="nav-item">
+            <%= link_to new_user_registration_path, class: "nav-link nav-pill" do %>
+              <i class="fas fa-user-plus"></i>
+              <span>S'inscrire</span>
+            <% end %>
+          </li>
+        </ul>
+      <% end %>
     </div>
   </div>
 </nav>

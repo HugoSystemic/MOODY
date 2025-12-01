@@ -4,15 +4,18 @@ class Chat < ApplicationRecord
   has_many :musics, dependent: :destroy
 
   DEFAULT_TITLE = "Untitled"
-  TITLE_PROMPT = <<~PROMPT
-    Generate a short, descriptive, 3-to-6-word title that summarizes the user question for a chat conversation.
-  PROMPT
 
   def generate_title_from_first_message
-    first_user_message = messages.where(role: "user").order(:created_at).first
-    return if first_user_message.nil?
+    title_prompt = <<~PROMPT
+      Génère un titre court et descriptif (3 à 6 mots) en français pour une conversation de chat.
+      Le titre doit résumer : humeur "#{mood}", activité "#{activity}", durée #{duration} secondes.
+      Exemple : "Humeur joyeuse pour un trajet en voiture d'1h"
+      Réponds UNIQUEMENT avec le titre, sans guillemets ni ponctuation finale.
+    PROMPT
+    first_two_user_messages = messages.where(role: "user").order(:created_at).limit(2)
+    return if first_two_user_messages.empty?
 
-    response = RubyLLM.chat.with_instructions(TITLE_PROMPT).ask(first_user_message.content)
+    response = RubyLLM.chat.with_instructions(title_prompt).ask(first_two_user_messages.pluck(:content).join("\n"))
     puts "Titre généré : #{response.content}"
     update(title: response.content) if response.content.present?
   end

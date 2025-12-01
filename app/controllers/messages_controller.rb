@@ -6,10 +6,10 @@ class MessagesController < ApplicationController
     Please return a json format with this keys : { 'message'=> une réponse récapitulant les infos du message du user, 'activity'=> an activity, 'duration'=> a duration in seconds, 'found'=> true/false if you managed to find an activity and a duration, 'youtube_url'=> the direct YouTube video URL that match my mood, activity and duration, 'video_title'=> the title of the YouTube video }\n\n
     the key 'message' should return a message WITHOUT the youtube link (just the text)\n\n
     You should select a youtube video from the ten available"
-  SYSTEM_PROMPT_YOUTUBE_API = "Using the activity and mood can you return me a text that I could use to search a youtube video, in the response I only want the text that I could copy/paste in the youtube search bar"
+  SYSTEM_PROMPT_YOUTUBE_API = "Using the activity and mood can you return me a text that I could use to search a youtube video, in the response I only want the text that I could copy/paste in the youtube search bar\n\n it should contains only music"
   SYSTEM_PROMPT_MUSIC_URLS = "
-    Return a json format with these keys: { 'message'=> a text message (WITHOUT the youtube link), 'youtube_url'=> the direct YouTube video URL that match my mood, activity and duration, 'video_title'=> the title of the YouTube video }\n\n
-    You should select a youtube video from the ten available"
+    Return a json format with these keys: { 'message'=> a text message (WITHOUT the youtube link), 'youtube_url'=> the direct YouTube video URL that match my mood, activity and duration, 'video_title'=> the title of the YouTube video, 'found'=>true/false if you found a video }\n\n
+    You should select a youtube video from the ten available that is a music video and not some guide to do something"
 
   # GET /chats/:chat_id/messages
   def index
@@ -32,13 +32,13 @@ class MessagesController < ApplicationController
       youtube_query = @ruby_llm_chat.with_instructions(SYSTEM_PROMPT_YOUTUBE_API).ask(@message.content).content
       youtube_tools = YoutubeTool.new(youtube_query, { max_results: 10 })
 
-      @ruby_llm_chat.with_tools(youtube_tools)
-      @ruby_llm_chat.with_instructions(instructions())
-      response = @ruby_llm_chat.ask(@message.content)
+      parsed_response = askLLM()
 
-      parsed_response = JSON.parse(response.content)
       if parsed_response["found"] == true
-        @chat.update(activity: parsed_response["activity"], duration: parsed_response["duration"])
+        if @chat.messages.where(role: 'assistant').size == 1
+          @chat.update(activity: parsed_response["activity"], duration: parsed_response["duration"])
+        end
+
         @chat.messages.create(
           role: "assistant",
           content: parsed_response["message"],
@@ -57,18 +57,19 @@ class MessagesController < ApplicationController
 
   private
 
+  def ask_llm()
+    response = @ruby_llm_chat.with_tools(youtube_tools).with_instructions(instructions()).ask(@message.content)
+    JSON.parse(response.content)
+  end
+
   def create_music(parsed_response)
-    music = Music.new(
+    music = Music.create(
       category: "musique",
       duration_minutes: parsed_response["duration"],
       video_url: parsed_response["youtube_url"],
-      title: parsed_response["video_title"]
+      title: parsed_response["video_title"],
+      chat: @chat
     )
-
-      music.chat = @chat
-      music.save
-
-
   end
 
   def message_params
@@ -85,7 +86,7 @@ class MessagesController < ApplicationController
     if @chat.messages.where(role: 'assistant').size == 1
       @ruby_llm_chat.with_instructions(SYSTEM_PROMPT_FOR_ACTIVITIES)
     else
-      @ruby_llm_chat.with_instructions(SYSTEM_PROMPT_MUSIC_URLS)
+      @ruby_llm_chat.with_instructions(SYSTEM_PROMPT_MUSIC_URLS + "\n\n" + "Choose a different video from the previous ones")
     end
   end
 end

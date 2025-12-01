@@ -30,7 +30,7 @@ class ChatsController < ApplicationController
   def create
     @chat = current_user.chats.new(chat_params)
 
-    @chat.title = Chat::DEFAULT_TITLE
+    # @chat.title = Chat::DEFAULT_TITLE
 
     if @chat.save
       if params[:message].present? && params[:message][:content].present?
@@ -39,7 +39,7 @@ class ChatsController < ApplicationController
           role: 'user'
         )
         if @message.save
-          @chat.generate_title_from_first_message
+          # @chat.generate_title_from_first_message
 
           @ruby_llm_chat = RubyLLM.chat
           build_conversation_history
